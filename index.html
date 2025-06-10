@@ -688,6 +688,16 @@
             localStorage.setItem('end-time', e.target.value);
             calculateTimeRemaining();
         });
+
+        // input-group 어디를 클릭해도 input이 포커스되도록
+        document.querySelectorAll('.input-group').forEach(group => {
+            group.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'INPUT') {
+                    const input = group.querySelector('input[type="time"]');
+                    if (input) input.focus();
+                }
+            });
+        });
     </script>
 </body>
 </html>
