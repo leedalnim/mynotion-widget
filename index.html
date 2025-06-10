@@ -45,32 +45,16 @@
             align-items: center;
             transition: all 0.3s ease;
             overflow-x: hidden;
-        }
-        
-        body.dark-mode {
-            background: var(--bg-dark);
-        }
-        
-        .container {
-            background: var(--glass-light);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: none;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: none;
             text-align: center;
             max-width: 480px;
             width: 100%;
             min-width: 0;
-            transition: all 0.3s ease;
+            margin: 0 auto;
             box-sizing: border-box;
         }
         
-        body.dark-mode .container {
-            background: var(--glass-dark);
-            border: none;
-            box-shadow: none;
+        body.dark-mode {
+            background: var(--bg-dark);
         }
         
         .header {
@@ -365,7 +349,6 @@
                 width: 100vw;
                 min-width: 0;
                 padding: 10px 2px;
-                border-radius: 15px;
                 box-sizing: border-box;
             }
             
@@ -410,12 +393,11 @@
         
         /* 200px 이하 초소형 디바이스 대응 */
         @media (max-width: 200px) {
-            .container {
+            body {
                 max-width: 100vw;
                 width: 100vw;
                 min-width: 0;
                 padding: 2px 0;
-                border-radius: 6px;
                 box-sizing: border-box;
             }
             
@@ -472,34 +454,30 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🕐 퇴근시간 계산기</h1>
-            <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+    <div class="header">
+        <h1>🕐 퇴근시간 계산기</h1>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+    </div>
+    <div class="input-row">
+        <div class="input-group">
+            <label for="start-time">출근시간:</label>
+            <input type="time" id="start-time" value="08:30">
         </div>
-        
-        <div class="input-row">
-            <div class="input-group">
-                <label for="start-time">출근시간:</label>
-                <input type="time" id="start-time" value="08:30">
-            </div>
-            <div class="input-group">
-                <label for="end-time">퇴근시간:</label>
-                <input type="time" id="end-time" value="17:30">
-            </div>
+        <div class="input-group">
+            <label for="end-time">퇴근시간:</label>
+            <input type="time" id="end-time" value="17:30">
         </div>
-        
-        <div class="result">
-            <div class="emoji" id="emoji">😊</div>
-            <div class="message" id="message">시간을 설정해주세요</div>
-            <div class="current-time" id="current-time"></div>
-            <div class="progress-container" id="progress-container" style="display: none;">
-                <div class="progress-label" id="progress-label">진행률</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-                </div>
-                <div class="progress-text" id="progress-text">0%</div>
+    </div>
+    <div class="result">
+        <div class="emoji" id="emoji">😊</div>
+        <div class="message" id="message">시간을 설정해주세요</div>
+        <div class="current-time" id="current-time"></div>
+        <div class="progress-container" id="progress-container" style="display: none;">
+            <div class="progress-label" id="progress-label">진행률</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
             </div>
+            <div class="progress-text" id="progress-text">0%</div>
         </div>
     </div>
 
