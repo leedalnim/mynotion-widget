@@ -157,6 +157,21 @@
             cursor: pointer;
         }
         
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            background: #fff;
+            border: 1.5px solid #C32878;
+            border-radius: 6px;
+            padding: 4px;
+            margin-right: 2px;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+        }
+        
+        input[type="time"]::-webkit-calendar-picker-indicator:hover {
+            background: #FAE6F0;
+            border-color: #afafaf;
+        }
+        
         .result {
             margin-top: 20px;
             padding: 20px;
