@@ -381,6 +381,155 @@
                 padding: 12px;
             }
         }
+        
+        /* 초소형 화면 최적화 (200px 이하) */
+        @media (max-width: 250px) {
+            body {
+                padding: 2px;
+                min-height: auto;
+            }
+            
+            .container {
+                padding: 8px 5px;
+                border-radius: 10px;
+                min-width: auto;
+            }
+            
+            .header {
+                margin-bottom: 12px;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            h1 {
+                font-size: 14px;
+                margin: 0;
+            }
+            
+            .dark-mode-toggle {
+                padding: 4px 8px;
+                font-size: 14px;
+                align-self: center;
+            }
+            
+            .input-row {
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+            
+            label {
+                font-size: 12px;
+                margin-bottom: 4px;
+            }
+            
+            input[type="time"] {
+                padding: 6px 8px;
+                font-size: 12px;
+                border-radius: 8px;
+            }
+            
+            .result {
+                margin-top: 10px;
+                padding: 10px 8px;
+                border-radius: 10px;
+            }
+            
+            .emoji {
+                font-size: 32px;
+                margin-bottom: 8px;
+            }
+            
+            .message {
+                font-size: 11px;
+                line-height: 1.3;
+            }
+            
+            .time-highlight {
+                font-size: 13px;
+                display: block;
+                margin-top: 4px;
+            }
+            
+            .current-time {
+                font-size: 10px;
+                margin-top: 8px;
+            }
+            
+            .progress-container {
+                margin-top: 8px;
+                padding: 8px 6px;
+                border-radius: 8px;
+            }
+            
+            .progress-label {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+            
+            .progress-bar {
+                height: 6px;
+            }
+            
+            .progress-text {
+                font-size: 10px;
+                margin-top: 4px;
+            }
+        }
+        
+        /* 극소형 화면 최적화 (180px 이하) */
+        @media (max-width: 180px) {
+            .container {
+                padding: 6px 4px;
+            }
+            
+            h1 {
+                font-size: 12px;
+            }
+            
+            .dark-mode-toggle {
+                padding: 3px 6px;
+                font-size: 12px;
+            }
+            
+            .emoji {
+                font-size: 28px;
+                margin-bottom: 6px;
+            }
+            
+            .message {
+                font-size: 10px;
+            }
+            
+            .time-highlight {
+                font-size: 11px;
+            }
+            
+            input[type="time"] {
+                padding: 5px 6px;
+                font-size: 11px;
+            }
+            
+            label {
+                font-size: 11px;
+            }
+            
+            .current-time {
+                font-size: 9px;
+            }
+            
+            .progress-container {
+                padding: 6px 4px;
+            }
+            
+            .progress-label {
+                font-size: 10px;
+            }
+            
+            .progress-text {
+                font-size: 9px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -519,13 +668,26 @@
                 
                 if (overtimeSeconds > 2 * 60 * 60) { // 2시간 초과
                     emoji.textContent = '🤪';
-                    message.innerHTML = `🚨야근경보 ${String(overtimeHours).padStart(2, '0')}시간 ${String(overtimeMinutes).padStart(2, '0')}분 ${String(remainingSeconds).padStart(2, '0')}초 초과🚨`;
+                    // 작은 화면에서는 텍스트 축약
+                    if (window.innerWidth <= 250) {
+                        message.innerHTML = `🚨야근 ${String(overtimeHours).padStart(2, '0')}:${String(overtimeMinutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}🚨`;
+                    } else {
+                        message.innerHTML = `🚨야근경보 ${String(overtimeHours).padStart(2, '0')}시간 ${String(overtimeMinutes).padStart(2, '0')}분 ${String(remainingSeconds).padStart(2, '0')}초 초과🚨`;
+                    }
                 } else if (overtimeSeconds > 30 * 60) { // 30분 초과
                     emoji.textContent = '😡';
-                    message.innerHTML = `🚨야근경보 ${String(overtimeHours).padStart(2, '0')}시간 ${String(overtimeMinutes).padStart(2, '0')}분 ${String(remainingSeconds).padStart(2, '0')}초 초과🚨`;
+                    if (window.innerWidth <= 250) {
+                        message.innerHTML = `🚨야근 ${String(overtimeHours).padStart(2, '0')}:${String(overtimeMinutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}🚨`;
+                    } else {
+                        message.innerHTML = `🚨야근경보 ${String(overtimeHours).padStart(2, '0')}시간 ${String(overtimeMinutes).padStart(2, '0')}분 ${String(remainingSeconds).padStart(2, '0')}초 초과🚨`;
+                    }
                 } else {
                     emoji.textContent = '😭';
-                    message.innerHTML = '야근,,, 이신가요?';
+                    if (window.innerWidth <= 250) {
+                        message.innerHTML = '야근인가요?';
+                    } else {
+                        message.innerHTML = '야근,,, 이신가요?';
+                    }
                     result.className = 'result';
                 }
             }
