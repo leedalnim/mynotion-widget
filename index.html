@@ -562,20 +562,6 @@
                 return;
             }
 
-            // 점심시간 체크
-            if (isLunchTime(now)) {
-                const emoji = document.getElementById('emoji');
-                const message = document.getElementById('message');
-                const result = document.querySelector('.result');
-                const progressContainer = document.getElementById('progress-container');
-                
-                emoji.textContent = '🍱';
-                message.innerHTML = '점심시간입니다! 맛있게 드세요~';
-                result.className = 'result lunch-time';
-                progressContainer.style.display = 'none';
-                return;
-            }
-            
             // 출근시간과 퇴근시간 설정
             const [startHour, startMinute] = startTimeInput.split(':').map(Number);
             const [endHour, endMinute] = endTimeInput.split(':').map(Number);
@@ -589,6 +575,39 @@
             // 만약 퇴근시간이 출근시간보다 이전이면 다음날로 설정
             if (endTime < startTime) {
                 endTime.setDate(endTime.getDate() + 1);
+            }
+
+            // 출근 시간 전 상태 체크
+            if (now < startTime) {
+                const timeUntilStart = Math.floor((startTime - now) / 1000);
+                const hours = Math.floor(timeUntilStart / 3600);
+                const minutes = Math.floor((timeUntilStart % 3600) / 60);
+                const seconds = timeUntilStart % 60;
+
+                const emoji = document.getElementById('emoji');
+                const message = document.getElementById('message');
+                const result = document.querySelector('.result');
+                const progressContainer = document.getElementById('progress-container');
+
+                emoji.textContent = '🥱';
+                message.innerHTML = `출근까지 <span class="time-highlight">${String(hours).padStart(2, '0')}시간 ${String(minutes).padStart(2, '0')}분 ${String(seconds).padStart(2, '0')}초</span> 남았어요`;
+                result.className = 'result';
+                progressContainer.style.display = 'none';
+                return;
+            }
+            
+            // 점심시간 체크
+            if (isLunchTime(now)) {
+                const emoji = document.getElementById('emoji');
+                const message = document.getElementById('message');
+                const result = document.querySelector('.result');
+                const progressContainer = document.getElementById('progress-container');
+                
+                emoji.textContent = '🍱';
+                message.innerHTML = '점심시간입니다! 맛있게 드세요~';
+                result.className = 'result lunch-time';
+                progressContainer.style.display = 'none';
+                return;
             }
             
             // 현재 시간이 출근시간 이전이면 출근시간을 현재 시간으로 설정
